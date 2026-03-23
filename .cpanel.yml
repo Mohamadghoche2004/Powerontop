@@ -1,0 +1,10 @@
+# cPanel Git deployment — adjust DEPLOYPATH if your site uses a subdomain docroot
+# (Domains → powerontop.uspot.net → document root). Requires Node/npm on the server
+# (e.g. cPanel → Setup Node.js App) or npm available in the deployment environment.
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/uspotnet/public_html/
+    - npm ci
+    - npm run build
+    - /bin/cp -R dist/. $DEPLOYPATH
