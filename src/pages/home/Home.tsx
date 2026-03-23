@@ -1,6 +1,6 @@
 import Banner from "../../components/Banner";
-import Footer from "../../components/Footer";
-import Navbar from "../../components/Navbar";
+// import Footer from "../../components/Footer";
+// import Navbar from "../../components/Navbar";
 import { ButtonComponent } from "../../components/ui/Button";
 import { AboutUsSection } from "./sections/AboutUsSection";
 import { CategoriesSection } from "./sections/CategoriesSection";

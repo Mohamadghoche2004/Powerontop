@@ -39,7 +39,7 @@ export default function GenericTable<T extends BaseTableData>({
   const [searchTerm, setSearchTerm] = React.useState("");
 
   const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
+    _event: React.MouseEvent<unknown>,
     property: keyof T
   ) => {
     const isAsc = orderBy === property && order === "asc";
@@ -57,7 +57,7 @@ export default function GenericTable<T extends BaseTableData>({
   };
 
   const handleClick = (
-    event: React.MouseEvent<unknown>,
+    _event: React.MouseEvent<unknown>,
     id: string | number
   ) => {
     // Check if item is deletable before allowing selection
@@ -87,7 +87,7 @@ export default function GenericTable<T extends BaseTableData>({
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {
     setPage(newPage);
   };
 
