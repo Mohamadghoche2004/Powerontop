@@ -13,66 +13,69 @@ import Products from "./pages/dashboard/Products/Products";
 import Categories from "./pages/dashboard/Categories/Categories";
 import Orders from "./pages/dashboard/Orders/Orders";
 import ProductVariants from "./pages/dashboard/ProductVariants/ProductVariants";
+import { ProductDetails } from "./pages/products/ProductDetails";
+import ProductCatalog from "./pages/products/ProductCatalog";
 
 export const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <App />,
-        errorElement: <NotFound />,
-        children: [
-            {
-                index: true,
-                element: <Home />,
-            },
-            //   { path: "products", element: <Products /> },
-            //   { path: "products/:id", element: <ProductDetails /> },
-        ],
-    },
-    {
-        path: "/auth",
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <NotFound />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      { path: "products", element: <ProductCatalog /> },
+      { path: "products/:id", element: <ProductDetails /> },
+      //   { path: "products/:id", element: <ProductDetails /> },
+    ],
+  },
+  {
+    path: "/auth",
+    element: (
+      <PublicRoute>
+        <AuthLayout />
+      </PublicRoute>
+    ),
+    children: [
+      {
+        path: "login",
         element: (
-            <PublicRoute>
-                <AuthLayout />
-            </PublicRoute>
+          <PublicRoute>
+            <Login />
+          </PublicRoute>
         ),
-        children: [
-            { 
-                path: "login", 
-                element: (
-                    <PublicRoute>
-                        <Login />
-                    </PublicRoute>
-                ) 
-            },
-            { 
-                path: "register", 
-                element: (
-                    <PublicRoute>
-                        <Signup />
-                    </PublicRoute>
-                ) 
-            },
-        ],
-    },
-    {
-        path: "/dashboard",
+      },
+      {
+        path: "register",
         element: (
-            <AdminRoute>
-                <DashboardLayout />
-            </AdminRoute>
+          <PublicRoute>
+            <Signup />
+          </PublicRoute>
         ),
-        children: [
-            { index: true, element: <div>Dashboard</div> },
-            { path: "users", element: <Users /> },
-            { path: "products", element: <Products /> },
-            { path: "product-variants", element: <ProductVariants /> },
-            { path: "categories", element: <Categories /> },
-            { path: "orders", element: <Orders /> },
-            { path: "settings", element: <div>Settings</div> },
-        ],
-    },
-    {
-        path: "*",
-        element: <NotFound />,
-    },
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <AdminRoute>
+        <DashboardLayout />
+      </AdminRoute>
+    ),
+    children: [
+      { index: true, element: <div>Dashboard</div> },
+      { path: "users", element: <Users /> },
+      { path: "products", element: <Products /> },
+      { path: "product-variants", element: <ProductVariants /> },
+      { path: "categories", element: <Categories /> },
+      { path: "orders", element: <Orders /> },
+      { path: "settings", element: <div>Settings</div> },
+    ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
+  },
 ]);
