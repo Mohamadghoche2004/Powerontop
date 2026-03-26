@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -83,11 +84,13 @@ const Navbar = () => {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <img
-                src="/logo.png"
-                alt="Your Company"
-                className="h-12 w-auto"
-              />
+              <Link to="/" className="inline-flex shrink-0" aria-label="Home">
+                <img
+                  src="/logo.png"
+                  alt=""
+                  className="h-12 w-auto"
+                />
+              </Link>
             </div>
             <div className="hidden sm:ml-6 sm:block sm:flex sm:items-center">
               <div className="flex space-x-4">
