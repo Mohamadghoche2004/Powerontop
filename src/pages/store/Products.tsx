@@ -67,14 +67,16 @@ export default function Products() {
                 <button
                   type="button"
                   className="px-3 py-2 bg-purple-600 text-white text-sm rounded-md hover:bg-purple-700"
-                  onClick={() =>
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     setPickerProduct({
                       _id: product._id,
                       title: product.title,
                       price: product.price,
                       images: product.images,
-                    })
-                  }
+                    });
+                  }}
                 >
                   Add to cart
                 </button>

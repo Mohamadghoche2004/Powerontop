@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogTitle,
@@ -39,6 +40,7 @@ interface VariantPickerModalProps {
 
 export const VariantPickerModal = ({ open, onClose, product }: VariantPickerModalProps) => {
   const { addItem } = useCart();
+  const navigate = useNavigate();
   const [variants, setVariants] = useState<VariantApi[]>([]);
   const [loading, setLoading] = useState(false);
   const [selectedId, setSelectedId] = useState("");
@@ -91,6 +93,7 @@ export const VariantPickerModal = ({ open, onClose, product }: VariantPickerModa
       1
     );
     onClose();
+    navigate("/cart");
   };
 
   return (
@@ -112,6 +115,7 @@ export const VariantPickerModal = ({ open, onClose, product }: VariantPickerModa
               label="Size & color"
               value={selectedId}
               onChange={(e) => setSelectedId(e.target.value)}
+              MenuProps={{ disablePortal: true }}
             >
               {variants.map((v) => (
                 <MenuItem key={v._id} value={v._id} disabled={v.stock < 1}>

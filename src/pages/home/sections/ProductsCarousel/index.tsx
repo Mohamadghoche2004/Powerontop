@@ -86,14 +86,16 @@ export const ProductsCarousel = () => {
                     <button
                       type="button"
                       className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors text-sm"
-                      onClick={() =>
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         setPickerProduct({
                           _id: product._id,
                           title: product.title,
                           price: product.price,
                           images: product.images,
-                        })
-                      }
+                        });
+                      }}
                     >
                       Add to Cart
                     </button>

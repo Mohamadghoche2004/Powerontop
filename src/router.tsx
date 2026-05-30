@@ -7,6 +7,7 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import AdminLogin from "./pages/auth/AdminLogin";
 import NotFound from "./pages/NotFound/NotFound";
+import RouteErrorBoundary from "./components/RouteErrorBoundary";
 import { PublicRoute } from "./components/PublicRoute";
 import { AdminRoute } from "./components/AdminRoute";
 import Users from "./pages/dashboard/Users/Users";
@@ -24,7 +25,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <NotFound />,
+    errorElement: <RouteErrorBoundary />,
     children: [
       { index: true, element: <Home /> },
       { path: "products", element: <StoreProducts /> },
