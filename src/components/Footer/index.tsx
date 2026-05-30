@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const FooterContainer = styled.footer`
   width: 100%;
@@ -34,7 +35,7 @@ const FooterTitle = styled.h3`
   color: #9810fa;
 `;
 
-const FooterLink = styled.a`
+const footerLinkStyles = `
   color: #d1d5db;
   text-decoration: none;
   transition: color 0.2s ease;
@@ -43,6 +44,15 @@ const FooterLink = styled.a`
   &:hover {
     color: #9810fa;
   }
+`;
+
+const FooterLink = styled.a`
+  ${footerLinkStyles}
+`;
+
+const FooterRouterLink = styled(Link)`
+  ${footerLinkStyles}
+  display: block;
 `;
 
 const FooterText = styled.p`
@@ -150,11 +160,11 @@ const Footer = () => {
 
         <FooterSection>
           <FooterTitle>Quick Links</FooterTitle>
-          <FooterLink href="#">Home</FooterLink>
-          <FooterLink href="#">Products</FooterLink>
-          <FooterLink href="#">Categories</FooterLink>
-          <FooterLink href="#">About Us</FooterLink>
-          <FooterLink href="#">Contact</FooterLink>
+          <FooterRouterLink to="/">Home</FooterRouterLink>
+          <FooterRouterLink to="/products">Shop</FooterRouterLink>
+          <FooterRouterLink to="/cart">Cart</FooterRouterLink>
+          <FooterRouterLink to="/auth/login">Customer login</FooterRouterLink>
+          <FooterRouterLink to="/auth/admin/login">Admin</FooterRouterLink>
         </FooterSection>
 
         <FooterSection>

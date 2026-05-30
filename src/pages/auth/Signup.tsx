@@ -10,7 +10,7 @@ export default function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { register } = useAuth();
+    const { register, logout } = useAuth();
 
     const handleSignup = async () => {
         try {
@@ -19,7 +19,7 @@ export default function Signup() {
                 email: email,
                 password: password,
             });
-            // Redirect to login page on success
+            logout();
             navigate("/auth/login");
         } catch (error: any) {
             console.error("Signup error:", error);

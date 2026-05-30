@@ -1,6 +1,5 @@
+import { Link } from "react-router-dom";
 import Banner from "../../components/Banner";
-// import Footer from "../../components/Footer";
-// import Navbar from "../../components/Navbar";
 import { ButtonComponent } from "../../components/ui/Button";
 import { AboutUsSection } from "./sections/AboutUsSection";
 import { CategoriesSection } from "./sections/CategoriesSection";
@@ -20,11 +19,13 @@ export const Home = () => {
                     <h1 className="text-xl font-bold text-white text-center">
                         Explore items handpicked to enhance your everyday experiences.
                     </h1>
-                    <ButtonComponent
-                        text="Get Started"
-                        color="#9810fa"
-                        style={{ padding: "10px 20px", borderRadius: "24px" }}
-                    />
+                    <Link to="/products">
+                        <ButtonComponent
+                            text="Get Started"
+                            color="#9810fa"
+                            style={{ padding: "10px 20px", borderRadius: "24px" }}
+                        />
+                    </Link>
                 </div>
             </div>
             <ProductsCarousel />

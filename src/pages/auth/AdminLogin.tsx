@@ -1,30 +1,28 @@
 import { TextField } from "@mui/material";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ButtonComponent } from "../../components/ui/Button";
 import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { authService } from "../../services/auth.service";
 
-export default function Login() {
+export default function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
   const { login } = useAuth();
 
   const handleLogin = async () => {
     setError("");
     try {
       const user = await login({ email, password });
-      if (user.role === "admin") {
+      if (user.role !== "admin") {
         authService.logout();
-        setError("Please use the admin login page for dashboard access.");
+        setError("Access denied. Admin credentials required.");
         return;
       }
-      const returnUrl = searchParams.get("returnUrl") || "/";
-      navigate(returnUrl);
+      navigate("/dashboard");
     } catch (err: unknown) {
       const message =
         (err as { response?: { data?: { error?: string; message?: string } } })?.response?.data
@@ -41,8 +39,8 @@ export default function Login() {
         <div className="flex flex-col gap-10 justify-center items-center lg:items-start lg:justify-start">
           <img src="/logo.png" alt="PowerOnTop" className="w-30 lg:ml-3" />
           <div className="flex flex-col gap-4 justify-center items-center p-5 lg:items-start lg:justify-start">
-            <h1 className="text-2xl lg:text-5xl font-bold">Hello, Welcome Back</h1>
-            <p>Sign in to track orders or checkout faster</p>
+            <h1 className="text-2xl lg:text-5xl font-bold">Admin Login</h1>
+            <p>Sign in to manage the store dashboard</p>
             {error && <p className="text-red-600 text-sm">{error}</p>}
             <TextField
               type="email"
@@ -67,9 +65,8 @@ export default function Login() {
               onClick={handleLogin}
             />
             <p>
-              Don&apos;t have an account?{" "}
-              <Link to="/auth/register" className="text-purple-600">
-                Sign up
+              <Link to="/" className="text-purple-600">
+                Back to store
               </Link>
             </p>
           </div>

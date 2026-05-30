@@ -10,10 +10,10 @@ export const AdminRoute = ({ children }: AdminRouteProps) => {
 
   if (!token) {
     // Redirect to login if not authenticated
-    return <Navigate to="/auth/login" replace />;
+    return <Navigate to="/auth/admin/login" replace />;
   }
 
-  if (userRole !== "admin") {
+  if (String(userRole).toLowerCase() !== "admin") {
     // Redirect to home if not an admin
     return <Navigate to="/" replace />;
   }

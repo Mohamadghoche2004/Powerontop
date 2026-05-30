@@ -10,7 +10,7 @@ export const PublicRoute = ({ children }: PublicRouteProps) => {
 
   if (token) {
     // Redirect admins to dashboard, regular users to home
-    if (userRole === "admin") {
+    if (String(userRole).toLowerCase() === "admin") {
       return <Navigate to="/dashboard" replace />;
     }
     return <Navigate to="/" replace />;

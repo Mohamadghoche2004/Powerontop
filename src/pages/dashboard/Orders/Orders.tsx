@@ -224,7 +224,8 @@ export default function Orders() {
       };
       if (data.user) {
         payload.user = data.user;
-      } else if (data.guest) {
+      }
+      if (data.guest) {
         payload.guest = data.guest;
       }
       await ordersService.createOrder(payload);

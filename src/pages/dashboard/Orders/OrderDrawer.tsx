@@ -143,8 +143,8 @@ export default function OrderDrawer({
         return;
       }
 
-      if (customerType === "guest" && (!guestName || !guestPhone || !guestAddress)) {
-        alert("Please fill in all guest fields");
+      if (!guestName || !guestPhone || !guestAddress) {
+        alert("Please fill in all delivery contact fields");
         return;
       }
 
@@ -171,14 +171,14 @@ export default function OrderDrawer({
         })),
       };
 
+      payload.guest = {
+        name: guestName,
+        phone: guestPhone,
+        address: guestAddress,
+      };
+
       if (customerType === "registered") {
         payload.user = userId;
-      } else {
-        payload.guest = {
-          name: guestName,
-          phone: guestPhone,
-          address: guestAddress,
-        };
       }
 
       await onSubmit(payload);
@@ -269,44 +269,42 @@ export default function OrderDrawer({
                 </FormControl>
               )}
 
-              {customerType === "guest" && (
-                <Box
-                  sx={{
-                    p: 2,
-                    mb: 2,
-                    border: "1px solid",
-                    borderColor: "divider",
-                    borderRadius: 1,
-                  }}
-                >
-                  <TextField
-                    fullWidth
-                    size="small"
-                    label="Guest Name"
-                    value={guestName}
-                    onChange={(e) => setGuestName(e.target.value)}
-                    required
-                    sx={{ mb: 1.5 }}
-                  />
-                  <TextField
-                    fullWidth
-                    size="small"
-                    label="Phone"
-                    value={guestPhone}
-                    onChange={(e) => setGuestPhone(e.target.value)}
-                    required
-                    sx={{ mb: 1.5 }}
-                  />
-                  <TextField
-                    fullWidth
-                    size="small"
-                    label="Guest Address"
-                    value={guestAddress}
-                    onChange={(e) => setGuestAddress(e.target.value)}
-                    required
-                  />
-                </Box>
-              )}
+              <Box
+                sx={{
+                  p: 2,
+                  mb: 2,
+                  border: "1px solid",
+                  borderColor: "divider",
+                  borderRadius: 1,
+                }}
+              >
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="Delivery name"
+                  value={guestName}
+                  onChange={(e) => setGuestName(e.target.value)}
+                  required
+                  sx={{ mb: 1.5 }}
+                />
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="Phone"
+                  value={guestPhone}
+                  onChange={(e) => setGuestPhone(e.target.value)}
+                  required
+                  sx={{ mb: 1.5 }}
+                />
+                <TextField
+                  fullWidth
+                  size="small"
+                  label="Street address"
+                  value={guestAddress}
+                  onChange={(e) => setGuestAddress(e.target.value)}
+                  required
+                />
+              </Box>
             </>
           )}
 
