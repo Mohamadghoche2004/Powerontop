@@ -1,9 +1,16 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
+import {
+  FREE_DELIVERY_THRESHOLD,
+  getDeliveryFee,
+  getOrderTotal,
+} from "../../utils/deliveryFee";
 
 export default function Cart() {
   const { items, subtotal, updateQuantity, removeItem } = useCart();
   const navigate = useNavigate();
+  const deliveryFee = getDeliveryFee(subtotal);
+  const total = getOrderTotal(subtotal);
 
   if (items.length === 0) {
     return (
@@ -91,10 +98,27 @@ export default function Cart() {
         ))}
       </ul>
 
-      <div className="mt-6 sm:mt-8 bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="mt-6 sm:mt-8 bg-white rounded-xl shadow-md border border-gray-100 p-4 sm:p-6 space-y-2">
+        <div className="flex justify-between text-sm text-gray-600">
+          <span>Subtotal</span>
+          <span>${subtotal.toFixed(2)}</span>
+        </div>
+        <div className="flex justify-between text-sm text-gray-600">
+          <span>Delivery</span>
+          {deliveryFee === 0 ? (
+            <span className="text-green-700 font-medium">Free</span>
+          ) : (
+            <span>${deliveryFee.toFixed(2)}</span>
+          )}
+        </div>
+        {deliveryFee > 0 && (
+          <p className="text-xs text-purple-700">
+            Free delivery on orders over ${FREE_DELIVERY_THRESHOLD}
+          </p>
+        )}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-2 border-t border-gray-100">
           <p className="text-lg sm:text-xl font-bold text-center sm:text-left">
-            Subtotal: <span className="text-purple-600">${subtotal.toFixed(2)}</span>
+            Total: <span className="text-purple-600">${total.toFixed(2)}</span>
           </p>
           <button
             type="button"

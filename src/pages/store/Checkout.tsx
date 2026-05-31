@@ -5,6 +5,11 @@ import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../hooks/useAuth";
 import { ordersService } from "../../services/orders.service";
 import type { CartItem } from "../../types/CartItem";
+import {
+  FREE_DELIVERY_THRESHOLD,
+  getDeliveryFee,
+  getOrderTotal,
+} from "../../utils/deliveryFee";
 
 const BRAND = "#9810fa";
 const BRAND_HOVER = "#7a0dc8";
@@ -29,6 +34,9 @@ function OrderSummaryCard({
   submitting: boolean;
   onSubmit: () => void;
 }) {
+  const deliveryFee = getDeliveryFee(subtotal);
+  const total = getOrderTotal(subtotal);
+
   return (
     <div className="bg-white rounded-2xl shadow-md border border-gray-100 p-6 lg:sticky lg:top-24">
       <h2 className="text-lg font-semibold text-gray-900 mb-4">Order summary</h2>
@@ -65,13 +73,26 @@ function OrderSummaryCard({
         <span>Subtotal</span>
         <span>${subtotal.toFixed(2)}</span>
       </div>
+      <div className="flex justify-between text-sm text-gray-600 mb-1">
+        <span>Delivery</span>
+        {deliveryFee === 0 ? (
+          <span className="text-green-700 font-medium">Free</span>
+        ) : (
+          <span>${deliveryFee.toFixed(2)}</span>
+        )}
+      </div>
+      {deliveryFee > 0 && subtotal < FREE_DELIVERY_THRESHOLD && (
+        <p className="text-xs text-purple-700 mb-2">
+          Add ${(FREE_DELIVERY_THRESHOLD - subtotal).toFixed(2)} more for free delivery
+        </p>
+      )}
       <div className="flex justify-between text-lg font-bold text-purple-600 mb-4">
         <span>Total</span>
-        <span>${subtotal.toFixed(2)}</span>
+        <span>${total.toFixed(2)}</span>
       </div>
 
       <p className="text-xs text-gray-500 text-center mb-4">
-        Pay on delivery · No online payment required
+        Pay on delivery · Free delivery on orders over ${FREE_DELIVERY_THRESHOLD}
       </p>
 
       {error && (

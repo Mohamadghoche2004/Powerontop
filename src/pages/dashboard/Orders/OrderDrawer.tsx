@@ -23,6 +23,7 @@ import type {
   GuestInfo,
   OrderItemResponse,
 } from "../../../types/Order";
+import { getDeliveryFee, getOrderTotal } from "../../../utils/deliveryFee";
 import type { ProductsTableData } from "../../../types/Product";
 import type { ProductVariantsTableData } from "../../../types/ProductVariant";
 import type { UsersTableData } from "../../../types/User";
@@ -125,9 +126,12 @@ export default function OrderDrawer({
     return basePrice + variant.extraPrice;
   };
 
-  const totalAmount = items.reduce((sum, item) => {
+  const itemsSubtotal = items.reduce((sum, item) => {
     return sum + getVariantPrice(item.productVariantId) * item.quantity;
   }, 0);
+
+  const deliveryFee = itemsSubtotal > 0 ? getDeliveryFee(itemsSubtotal) : 0;
+  const totalAmount = itemsSubtotal > 0 ? getOrderTotal(itemsSubtotal) : 0;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -481,6 +485,13 @@ export default function OrderDrawer({
                     textAlign: "right",
                   }}
                 >
+                  <Typography variant="body2" color="text.secondary">
+                    Subtotal: ${itemsSubtotal.toFixed(2)}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Delivery:{" "}
+                    {deliveryFee === 0 ? "Free" : `$${deliveryFee.toFixed(2)}`}
+                  </Typography>
                   <Typography variant="subtitle1" fontWeight={600}>
                     Total: ${totalAmount.toFixed(2)}
                   </Typography>
