@@ -12,13 +12,13 @@ export const Home = () => {
     return (
         <>
             <div className="firstSection flex flex-col justify-center items-center">
-                <div className=" w-full h-full flex flex-col justify-center items-center gap-6">
-                    <h1 className="text-4xl font-bold text-white text-center">
+                <div className="w-full h-full flex flex-col justify-center items-center gap-4 sm:gap-6 px-2">
+                    <h1 className="text-2xl sm:text-4xl font-bold text-white text-center">
                         Discover Endless Possibilities
                     </h1>
-                    <h1 className="text-xl font-bold text-white text-center">
+                    <p className="text-base sm:text-xl font-bold text-white text-center">
                         Explore items handpicked to enhance your everyday experiences.
-                    </h1>
+                    </p>
                     <Link to="/products">
                         <ButtonComponent
                             text="Get Started"
